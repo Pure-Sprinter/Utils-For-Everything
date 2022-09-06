@@ -1,4 +1,5 @@
 const request = async (url, method, body) => {
+  
   if (method === "POST" && !body) return "no data in body";
 
   try {
@@ -24,31 +25,7 @@ const request = async (url, method, body) => {
 };
 
 export const api = {
-  date: async (method, body) => {
-    return await request("/date", method, body);
-  },
-  before: async (method, body) => {
-    return await request("/before", method, body);
-  },
-  after: async (method, body) => {
-    return await request("/after", method, body);
-  },
-  payment: async (method, body) => {
-    return await request("/payment", method, body);
-  },
-  type: async (method, body) => {
-    return await request("/type", method, body);
-  },
-  add_payment: async (method, body) => {
-    return await request("/add/payment", method, body);
-  },
-  get_method: async (method, body) => {
-    return await request("/get/payment/method", method, body);
-  },
-  create_method: async (method, body) => {
-    return await request("/post/payment/method", method, body);
-  },
-  delete_method: async (method, body) => {
-    return await request("/delete/payment/method", method, body);
+  basic: (method, body) => {
+    return request("/basic", method, body);
   },
 };
