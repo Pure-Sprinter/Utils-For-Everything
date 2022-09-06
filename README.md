@@ -8,7 +8,7 @@
 | --------------- | --------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ---------- |
 | 나만의 Query 문 | 자바스크립트의 Method Chaining 방식을 사용하기 쉽고 가독성이 쿼리문 작성 기능을 만들었습니다. | [Query.js](https://github.com/Pure-Sprinter/Utils-For-Everything/blob/main/javascript/Query.js) | Javascript |
 | API 통합        | 클라이언트 상에서 편한 API 관리 및 호출을 담당하는 함수 입니다.                               | [Api.js](https://github.com/Pure-Sprinter/Utils-For-Everything/blob/main/javascript/Api.js)     | Javascript |
-| SQLlite 모듈    | Express와 SQLite3에서 사용하는 메소드별 작성한 함수 입니다.                                   | Database.js                                                                                     | Javascript |
+| SQLlite 모듈    | Express와 SQLite3에서 사용하는 메소드별 작성한 함수 입니다.                                   | [Database.js](https://github.com/Pure-Sprinter/Utils-For-Everything/blob/main/javascript/Database.js)                                                                                     | Javascript |
 
 ### CSS
 
