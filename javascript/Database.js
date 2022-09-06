@@ -3,7 +3,7 @@ import sqlite3 from "sqlite3";
 
 const __dirname = path.resolve();
 const sql = sqlite3.verbose();
-const db_path = path.join(__dirname, "/src/sql/data", "payment.db");
+const db_path = path.join(__dirname, "/sql/data", "db");
 
 export async function get_db() {
   const db = new sql.Database(db_path, (err) => {
@@ -11,7 +11,7 @@ export async function get_db() {
       return console.error(err.message);
     }
 
-    console.log("'payment.db'가 성공적으로 생성되었습니다");
+    console.log("'db'가 성공적으로 생성되었습니다");
   });
   return db;
 }
