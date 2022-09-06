@@ -57,3 +57,13 @@ export const text = (value) => {
 };
 
 export const query = new Query();
+
+/**
+ * SELECT 예시
+ */
+let select = query
+  .select({ col: "", table: "payment" })
+  .where({ col: "month", value: `"${month}"` })
+  .where({ col: "year", value: year }).sql;
+
+console.log(select);
