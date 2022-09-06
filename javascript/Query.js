@@ -16,7 +16,7 @@ class Query {
     return this;
   }
 
-  select({ col, table }) {
+  select({ table, col }) {
     let element = col ? (col.length === 0 ? "*" : col.join(", ")) : "*";
     this.sql = `SELECT ${element} FROM ${table} `;
     return this;
@@ -24,6 +24,22 @@ class Query {
 
   update({ table }) {
     this.sql = `UPDATE ${table} `;
+    return this;
+  }
+
+  /**
+   * @param {string} table 테이블 병
+   * @param {Array} col 세팅할 칼럼 명
+   * @param {Array} value 칼럼에 넣을 데이터 명
+   */
+  insert({ table, col, value }) {
+    this.sql = `INSERT INTO ${table}(${col.join(", ")}) 
+                VALUES(${value.join(", ")})`;
+    return this;
+  }
+
+  delete({ table }) {
+    this.sql = `DELETE FROM ${table}`;
     return this;
   }
 
@@ -48,6 +64,14 @@ class Query {
     } else {
       this.sql += `WHERE ${col} = ${value}`;
     }
+    return this;
+  }
+
+  /**
+   * 하단 부터는 유틸 함수
+   */
+  insert_space() {
+    this.sql = this.sql.length !== " " ? this.sql + " " : this.sql;
     return this;
   }
 }
