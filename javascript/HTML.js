@@ -27,7 +27,7 @@ export function set_element_click_event({ id, listener }) {
 }
 
 /**
- * id 를 기반으로 텍스트를 조회
+ * id 를 기반으로 텍스트를 설정
  */
 export function set_text_by_id({ id, text }) {
   const target = document.getElementById(id);
@@ -41,5 +41,14 @@ export function set_text_by_id({ id, text }) {
 export function set_input_text({ id, text }) {
   const target = document.getElementById(id);
   target.value = text;
+  return text;
+}
+
+/**
+ * id 를 기반으로 HTML를 설정
+ */
+export function set_html_by_id({ id, html }) {
+  const target = document.getElementById(id);
+  target.innerHTML = text;
   return text;
 }
