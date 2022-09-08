@@ -49,6 +49,6 @@ export function set_input_text({ id, text }) {
  */
 export function set_html_by_id({ id, html }) {
   const target = document.getElementById(id);
-  target.innerHTML = text;
-  return text;
+  target.innerHTML = html;
+  return html;
 }
