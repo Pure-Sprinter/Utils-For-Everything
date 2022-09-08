@@ -1,4 +1,29 @@
 /**
+ * display 상태 반대로 변경하는 함수
+ */
+export function display_target({ id }) {
+  const element = document.getElementById(id);
+  const after_status = display_status[element.style.display];
+  element.style.display = after_status;
+  return false;
+}
+
+const display_status = {
+  "": "block",
+  block: "none",
+  none: "block",
+};
+
+/**
+ * 개체 숨기기 함수
+ */
+export function appear_target(id) {
+  const element = document.getElementById(id);
+  element.style.display = "block";
+  return false;
+}
+
+/**
  * 개체 숨기기 함수
  */
 export function disappear_target(id) {
@@ -51,4 +76,22 @@ export function set_html_by_id({ id, html }) {
   const target = document.getElementById(id);
   target.innerHTML = html;
   return html;
+}
+
+/**
+ * id 를 기반으로 img/src를 설정
+ */
+export function set_img_src_by_id({ id, src }) {
+  const target = document.getElementById(id);
+  target.src = src;
+  return src;
+}
+
+/**
+ * id 기반으로 이벤트를 집어넣는 설정
+ */
+export function set_add_event_by_id({ id, listener }) {
+  const target = document.getElementById(id);
+  target.addEventListener("click", listener);
+  return false;
 }
