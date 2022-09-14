@@ -13,8 +13,7 @@
 | Date 모음집     | 자바스크립트 상에서 자주 사용하는 Date를 제어하고 활용하는 파일입니다.                        | [Date.js](https://github.com/Pure-Sprinter/Utils-For-Everything/blob/main/javascript/Date.js)         | Javascript |
 | HTML 태그 모듈  | 자바스크립트로 HTML 태그를 접근할 때 자주 사용하는 함수 모음집입니다.                         | [HTML.js](https://github.com/Pure-Sprinter/Utils-For-Everything/blob/main/javascript/HTML.js)         | Javascript |
 | 도메인 Util Class | 자바스크립트에서 선언한 클래스가 자바와 같이 여러 가지 유틸 함수를 가질 수 있도록 만든 상위 유틸 클래스입니다.                         | [Model.js](https://github.com/Pure-Sprinter/Utils-For-Everything/blob/main/javascript/Model.js)         | Javascript |
-
-
+| Repository Util Class | 자바스크립트에서도 JpaRepository와 같이 여러 가지 유틸 함수를 가질 수 있도록 만든 상위 유틸 클래스입니다.                         | [Repository.js](https://github.com/Pure-Sprinter/Utils-For-Everything/blob/main/javascript/Repository.js)         | Javascript |
 
 ## CSS
 
