@@ -1,4 +1,4 @@
-class Query {
+export class Query {
   constructor() {
     this.db = "";
     this.sql = "";
@@ -12,7 +12,7 @@ class Query {
   }
 
   create({ table }) {
-    this.sql = `CREATE TABLE ${table}(id integer primary key)`;
+    this.sql = `CREATE TABLE ${table}(id INT NOT NULL AUTO_INCREMENT PRIMARY KEY)`;
     return this;
   }
 
@@ -33,8 +33,14 @@ class Query {
    * @param {Array} value 칼럼에 넣을 데이터 명
    */
   insert({ table, col, value }) {
-    this.sql = `INSERT INTO ${table}(${col.join(", ")}) 
-                VALUES(${value.join(", ")})`;
+    this.sql = `INSERT INTO ${table}(${col.join(", ")}) VALUES(${value
+      .map((val) => {
+        if (typeof val === "string") {
+          return `'${val}'`;
+        }
+        return val;
+      })
+      .join(", ")})`;
     return this;
   }
 
@@ -43,9 +49,9 @@ class Query {
     return this;
   }
 
-  add_col(col, type) {
+  add_col([col, type]) {
     let temp_sql = this.sql.slice(0, this.sql.length - 1);
-    this.sql = temp_sql + `, ${col} ${type} not null)`;
+    this.sql = temp_sql + `, ${col} ${type} NOT NULL)`;
     return this;
   }
 
@@ -73,6 +79,16 @@ class Query {
   insert_space() {
     this.sql = this.sql.length !== " " ? this.sql + " " : this.sql;
     return this;
+  }
+
+  exists_table({ database, table }) {
+    this.sql = `SELECT COUNT(*) FROM Information_schema.tables WHERE table_schema = '${database}' AND table_name = '${table}'`;
+    return this.sql;
+  }
+
+  drop_table({ database, table }) {
+    this.sql = `DROP TABLE IF EXISTS ${database}.${table}`;
+    return this.sql;
   }
 }
 
