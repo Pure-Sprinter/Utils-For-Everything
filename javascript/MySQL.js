@@ -74,7 +74,6 @@ export async function is_exists_table({ database, table }) {
  * 특정 테이블 삭제 함수
  */
 export async function drop_table({ database, table }) {
-  const db = await get_db();
   const drop_sql = query.drop_table({ database: database, table: table });
   const result = await db_run({ sql: drop_sql });
   return result;
