@@ -65,20 +65,41 @@ export class Query {
   }
 
   where({ col, value }) {
+    let val = this.text(value);
     if (this.sql.includes("WHERE")) {
-      this.sql += ` AND ${col} = ${value}`;
+      this.sql += ` AND ${col} = ${val}`;
     } else {
-      this.sql += `WHERE ${col} = ${value}`;
+      this.sql += `WHERE ${col} = ${val}`;
     }
     return this;
   }
 
   between({ col, left, right }) {
     if (this.sql.includes("WHERE")) {
-      this.sql += ` AND ${col} BETWEEN ${left} AND ${right}`;
+      this.sql += `${col} BETWEEN ${left} AND ${right}`;
     } else {
       this.sql += `WHERE ${col} BETWEEN ${left} AND ${right}`;
     }
+    return this;
+  }
+
+  compare({ col, operator, value }) {
+    let val = this.text(value);
+    if (this.sql.includes("WHERE")) {
+      this.sql += `${col} ${COMPARE[operator]} ${val}`;
+    } else {
+      this.sql += `WHERE ${col} ${COMPARE[operator]} ${val}`;
+    }
+    return this;
+  }
+
+  and() {
+    this.sql += " AND ";
+    return this;
+  }
+
+  or() {
+    this.sql += " OR ";
     return this;
   }
 
@@ -99,10 +120,21 @@ export class Query {
     this.sql = `DROP TABLE IF EXISTS ${database}.${table}`;
     return this.sql;
   }
+
+  text(value) {
+    if (typeof value === "string") {
+      return `'${value}'`;
+    }
+    return value;
+  }
 }
 
-export const text = (value) => {
-  return `"${value}"`;
+const COMPARE = {
+  EQ: "=",
+  LT: "<",
+  LE: "<=",
+  GT: ">",
+  GE: ">=",
 };
 
 export const query = new Query();
