@@ -73,6 +73,15 @@ export class Query {
     return this;
   }
 
+  between({ col, left, right }) {
+    if (this.sql.includes("WHERE")) {
+      this.sql += ` AND ${col} BETWEEN ${left} AND ${right}`;
+    } else {
+      this.sql += `WHERE ${col} BETWEEN ${left} AND ${right}`;
+    }
+    return this;
+  }
+
   /**
    * 하단 부터는 유틸 함수
    */
@@ -97,13 +106,3 @@ export const text = (value) => {
 };
 
 export const query = new Query();
-
-/**
- * SELECT 예시
- */
-let select = query
-  .select({ col: "", table: "payment" })
-  .where({ col: "month", value: `"${month}"` })
-  .where({ col: "year", value: year }).sql;
-
-console.log(select);
