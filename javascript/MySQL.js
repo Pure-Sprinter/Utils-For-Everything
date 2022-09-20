@@ -13,7 +13,7 @@ const database = mysql.createPool(db_config);
 
 export async function get_db() {
   return await database.getConnection(function (err, connection) {
-    new Promise(function (resolve, reject) {
+    return new Promise(function (resolve, reject) {
       return err ? reject(err) : resolve(connection);
     });
   });
@@ -25,15 +25,18 @@ export async function get_db() {
  */
 export async function db_run({ sql }) {
   const db = await get_db();
-  return new Promise(async function (reject, resolve) {
+  console.log(sql);
+  return new Promise(async function (resolve, reject) {
     try {
       const result = await db.query(sql);
+      db.release();
       return resolve(result);
     } catch (err) {
       console.log(err);
       return reject(err);
     }
   }).catch((error) => {
+    console.log(error);
     return error;
   });
 }
@@ -78,3 +81,4 @@ export async function drop_table({ database, table }) {
   const result = await db_run({ sql: drop_sql });
   return result;
 }
+
