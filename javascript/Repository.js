@@ -24,15 +24,38 @@ export class Repository {
 
     const result = await db_run({ sql: select_sql });
     const object = result[0][0];
-
-    delete object["id"];
-    return this.entity.to_entity(object);
+    if (object) {
+      return this.entity.to_entity(object);
+    }
+    return null;
   }
 
   async find_all() {
     const select = query.select({ table: this.entity.get_class_name() }).sql;
     const result = await db_run({ sql: select });
     return result[0];
+  }
+
+  /**
+   * where 조건을 통해 얻은 요소
+   * @param {Object Literal} where
+   */
+  async find_one(where) {
+    const condition = { ...where };
+    const select_sql = query.select({ table: this.entity.get_class_name() });
+    Object.keys(condition)
+      .map((key) => {
+        return { col: key, value: condition[key] };
+      })
+      .map((element) => select_sql.where(element));
+
+    const result = await db_run({ sql: select_sql.sql });
+    const object = result[0][0];
+
+    if (object) {
+      return this.entity.to_entity(object);
+    }
+    return null;
   }
 
   /**
