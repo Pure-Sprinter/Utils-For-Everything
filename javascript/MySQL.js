@@ -25,7 +25,6 @@ export async function get_db() {
  */
 export async function db_run({ sql }) {
   const db = await get_db();
-  console.log(sql);
   return new Promise(async function (resolve, reject) {
     try {
       const result = await db.query(sql);
@@ -81,4 +80,5 @@ export async function drop_table({ database, table }) {
   const result = await db_run({ sql: drop_sql });
   return result;
 }
+
 
