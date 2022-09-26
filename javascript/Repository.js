@@ -14,7 +14,8 @@ export class Repository {
       value: entity.values(),
     }).sql;
 
-    return await db_run({ sql: insert_sql });
+    const result = await db_run({ sql: insert_sql });
+    return result[0];
   }
 
   async delete(entity) {
@@ -70,14 +71,20 @@ export class Repository {
   /**
    * 외래키를 통해 모든 것 조회
    */
-  async find_all_by_entity({ col, entity }) {
+  async find_all_by_entity(entity) {
     this.differ_entity(entity);
+
+    const entity_name = entity.get_class_name().toLowerCase();
+    const foreign_key = this.entity
+      .columns()
+      .filter((col) => col.includes(entity_name))[0];
 
     const select_sql = query
       .select({ table: this.entity.get_class_name() })
-      .where({ col: col, value: entity.id }).sql;
+      .where({ col: foreign_key, value: entity.id }).sql;
 
-    return await db_run({ sql: select_sql });
+    const result = await db_run({ sql: select_sql });
+    return result[0];
   }
 
   /**
