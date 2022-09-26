@@ -52,6 +52,7 @@ export class Query {
   add_foreign_key({ col, entity }) {
     let temp_sql = this.sql.slice(0, this.sql.length - 1);
     this.sql = temp_sql + `, ${col} INT NOT NULL REFERENCES ${entity} (id))`;
+    return this;
   }
 
   add_col({ col, type }) {
