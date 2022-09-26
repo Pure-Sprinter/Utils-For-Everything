@@ -14,7 +14,16 @@ export class Repository {
       value: entity.values(),
     }).sql;
 
-    await db_run({ sql: insert_sql });
+    return await db_run({ sql: insert_sql });
+  }
+
+  async delete(entity) {
+    this.differ_entity(entity);
+    const delete_sql = query
+      .delete({ table: this.entity.get_class_name() })
+      .where({ col: "id", value: entity.id }).sql;
+
+    await db_run({ sql: delete_sql });
   }
 
   async find_by_id(id) {
@@ -56,6 +65,19 @@ export class Repository {
       return this.entity.to_entity(object);
     }
     return null;
+  }
+
+  /**
+   * 외래키를 통해 모든 것 조회
+   */
+  async find_all_by_entity({ col, entity }) {
+    this.differ_entity(entity);
+
+    const select_sql = query
+      .select({ table: this.entity.get_class_name() })
+      .where({ col: col, value: entity.id }).sql;
+
+    return await db_run({ sql: select_sql });
   }
 
   /**
