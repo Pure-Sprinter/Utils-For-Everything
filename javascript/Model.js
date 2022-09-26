@@ -1,4 +1,8 @@
 export class Model {
+  constructor() {
+    this.id = 0;
+  }
+
   get(col) {
     this.not_exist_col_error(col);
     return this[col];
@@ -16,7 +20,7 @@ export class Model {
   }
 
   columns() {
-    return Object.getOwnPropertyNames(this);
+    return Object.getOwnPropertyNames(this).slice(1);
   }
 
   types() {
@@ -24,12 +28,14 @@ export class Model {
   }
 
   values() {
-    return Object.values(this);
+    return Object.values(this).slice(1);
   }
 
   to_sql() {
     const types = this.types();
-    return this.columns().map((value, index) => [value, types[index]]);
+    return this.columns().map((value, index) => {
+      return { col: value, type: types[index] };
+    });
   }
 
   to_entity(object) {
@@ -60,4 +66,5 @@ const type_into_sql = {
   number: "INT",
   string: "TEXT",
   object: "TEXT",
+  undefined: "TEXT",
 };
