@@ -22,9 +22,9 @@ export class Query {
     return this;
   }
 
-  select({ table, col }) {
+  select({ col }) {
     let element = col ? (col.length === 0 ? "*" : col.join(", ")) : "*";
-    this.sql = `SELECT ${element} FROM ${table} `;
+    this.sql = `SELECT ${element} FROM ${this.entity} `;
     return this;
   }
 
