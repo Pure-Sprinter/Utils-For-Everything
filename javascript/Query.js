@@ -60,9 +60,9 @@ export class Query {
     return this;
   }
 
-  add_col({ col, type }) {
+  add_col({ col, type, negated = false }) {
     let temp_sql = this.sql.slice(0, this.sql.length - 1);
-    this.sql = temp_sql + `, ${col} ${type} NOT NULL)`;
+    this.sql = temp_sql + `, ${col} ${type} ${negated ? "NOT NULL" : "NULL"})`;
     return this;
   }
 
