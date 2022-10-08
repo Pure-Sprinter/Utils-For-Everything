@@ -1,6 +1,7 @@
 export class Query {
   constructor() {
     this.db = "";
+    this.entity = "";
     this.sql = "";
   }
 
@@ -9,6 +10,11 @@ export class Query {
 
     this.db.run(this.sql, (err) => console.log("error : " + err));
     this.db.close();
+  }
+
+  table({ entity }) {
+    this.entity = entity;
+    return this;
   }
 
   create({ table }) {
