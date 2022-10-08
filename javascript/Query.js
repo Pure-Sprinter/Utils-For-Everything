@@ -22,9 +22,8 @@ export class Query {
     return this;
   }
 
-  select({ col }) {
-    let element = col ? (col.length === 0 ? "*" : col.join(", ")) : "*";
-    this.sql = `SELECT ${element} FROM ${this.entity} `;
+  select({ col = ["*"] }) {
+    this.sql = `SELECT ${col.join(", ")} FROM ${this.entity} `;
     return this;
   }
 
@@ -75,12 +74,12 @@ export class Query {
     return this;
   }
 
-  where({ col, value }) {
+  where({ col, value, operator = "EQ" }) {
     let val = this.text(value);
     if (this.sql.includes("WHERE")) {
-      this.sql += ` AND ${col} = ${val}`;
+      this.sql += `${col} ${COMPARE[operator]} ${val}`;
     } else {
-      this.sql += `WHERE ${col} = ${val}`;
+      this.sql += `WHERE ${col} ${COMPARE[operator]} ${val}`;
     }
     return this;
   }
