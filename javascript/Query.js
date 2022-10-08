@@ -34,12 +34,11 @@ export class Query {
   }
 
   /**
-   * @param {string} table 테이블 병
    * @param {Array} col 세팅할 칼럼 명
    * @param {Array} value 칼럼에 넣을 데이터 명
    */
-  insert({ table, col, value }) {
-    this.sql = `INSERT INTO ${table}(${col.join(", ")}) VALUES(${value
+  insert({ col, value }) {
+    this.sql = `INSERT INTO ${this.entity}(${col.join(", ")}) VALUES(${value
       .map((val) => {
         if (typeof val === "string") {
           return `'${val}'`;
@@ -50,8 +49,8 @@ export class Query {
     return this;
   }
 
-  delete({ table }) {
-    this.sql = `DELETE FROM ${table}`;
+  delete() {
+    this.sql = `DELETE FROM ${this.entity}`;
     return this;
   }
 
