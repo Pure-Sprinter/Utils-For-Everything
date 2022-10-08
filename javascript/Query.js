@@ -93,16 +93,6 @@ export class Query {
     return this;
   }
 
-  compare({ col, operator, value }) {
-    let val = this.text(value);
-    if (this.sql.includes("WHERE")) {
-      this.sql += `${col} ${COMPARE[operator]} ${val}`;
-    } else {
-      this.sql += `WHERE ${col} ${COMPARE[operator]} ${val}`;
-    }
-    return this;
-  }
-
   and() {
     this.sql += " AND ";
     return this;
