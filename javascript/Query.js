@@ -28,8 +28,8 @@ export class Query {
     return this;
   }
 
-  update({ table }) {
-    this.sql = `UPDATE ${table} `;
+  update() {
+    this.sql = `UPDATE ${this.entity} `;
     return this;
   }
 
