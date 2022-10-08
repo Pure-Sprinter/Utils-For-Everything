@@ -17,8 +17,8 @@ export class Query {
     return this;
   }
 
-  create({ table }) {
-    this.sql = `CREATE TABLE ${table}(id INT NOT NULL AUTO_INCREMENT PRIMARY KEY)`;
+  create() {
+    this.sql = `CREATE TABLE ${this.entity}(id INT NOT NULL AUTO_INCREMENT PRIMARY KEY)`;
     return this;
   }
 
