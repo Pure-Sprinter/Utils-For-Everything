@@ -24,20 +24,18 @@ export async function get_db() {
  * 하나의 SQL 문을 실행하는 함수 입니다.
  * @param {*} sql
  */
-export async function db_run({ sql }) {
+export async function db_run({ sql, value = [] }) {
   const db = await get_db();
   return new Promise(async function (resolve, reject) {
     try {
-      const result = await db.query(sql);
+      const result = await db.execute(sql, value);
       return resolve(result);
     } catch (err) {
-      console.log(err);
       return reject(err);
     } finally {
       db.release();
     }
   }).catch((error) => {
-    console.log(error);
     return error;
   });
 }
@@ -56,11 +54,13 @@ export async function db_all({ sql_array }) {
       await db.commit();
       return result;
     } catch (err) {
-      console.log(err);
       await db.rollback();
       return err;
+    } finally {
+      db.release();
     }
   }
+  db.release();
   return null;
 }
 
