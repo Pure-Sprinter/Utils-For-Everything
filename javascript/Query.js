@@ -1,15 +1,7 @@
 export class Query {
   constructor() {
-    this.db = "";
     this.entity = "";
     this.sql = "";
-  }
-
-  run() {
-    console.log(this.sql);
-
-    this.db.run(this.sql, (err) => console.log("error : " + err));
-    this.db.close();
   }
 
   table({ entity }) {
@@ -36,10 +28,12 @@ export class Query {
    * @param {Array} col 세팅할 칼럼 명
    * @param {Array} value 칼럼에 넣을 데이터 명
    */
-  insert({ col, value }) {
+  insert({ col, value, prepared = false }) {
     this.sql = `INSERT INTO ${this.entity}(${col.join(", ")}) VALUES(${value
       .map((val) => {
-        if (typeof val === "string") {
+        if (prepared) {
+          return "?";
+        } else if (typeof val === "string") {
           return `'${val}'`;
         }
         return val;
@@ -65,17 +59,18 @@ export class Query {
     return this;
   }
 
-  set({ col, value }) {
+  set({ col, value, prepared = false }) {
+    let element = prepared ? "?" : value;
     if (this.sql.includes("SET")) {
-      this.sql += `, ${col} = ${value} `;
+      this.sql += `, ${col} = ${element} `;
     } else {
-      this.sql += `SET ${col} = ${value} `;
+      this.sql += `SET ${col} = ${element} `;
     }
     return this;
   }
 
-  where({ col, value, operator = "EQ" }) {
-    let val = this.text(value);
+  where({ col, value, operator = "EQ", prepared = false }) {
+    let val = prepared ? "?" : this.text(value);
     if (this.sql.includes("WHERE")) {
       this.sql += `${col} ${COMPARE[operator]} ${val}`;
     } else {
