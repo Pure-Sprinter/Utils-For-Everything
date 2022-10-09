@@ -1,6 +1,8 @@
 export class Model {
   constructor() {
     this.id = 0;
+    this.created_date = "";
+    this.updated_date = "";
   }
 
   get(col) {
@@ -20,7 +22,9 @@ export class Model {
   }
 
   columns() {
-    return Object.getOwnPropertyNames(this).slice(1);
+    return Object.getOwnPropertyNames(this).filter(
+      (col) => !["id", "created_date", "updated_date"].includes(col)
+    );
   }
 
   types() {
