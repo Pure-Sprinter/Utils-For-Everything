@@ -7,6 +7,7 @@ const db_config = {
   port: "3306",
   password: PASSWORD,
   database: DATABASE,
+  connectionLimit: 10,
 };
 
 const database = mysql.createPool(db_config);
@@ -28,11 +29,12 @@ export async function db_run({ sql }) {
   return new Promise(async function (resolve, reject) {
     try {
       const result = await db.query(sql);
-      db.release();
       return resolve(result);
     } catch (err) {
       console.log(err);
       return reject(err);
+    } finally {
+      db.release();
     }
   }).catch((error) => {
     console.log(error);
@@ -80,5 +82,3 @@ export async function drop_table({ database, table }) {
   const result = await db_run({ sql: drop_sql });
   return result;
 }
-
-
