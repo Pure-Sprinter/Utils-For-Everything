@@ -1,4 +1,39 @@
 export class Model {
+  static TYPE = {
+    /**
+     * String Types
+     */
+    VARCHAR(size = 100) {
+      return `VARCHAR(${size})`;
+    },
+    TEXT(size = 500) {
+      return `TEXT(${size})`;
+    },
+    LONGBLOB: "LONGBLOB",
+
+    /**
+     * Numeric Types
+     */
+    BOOLEAN: "BOOLEAN",
+    SMALLINT: "SMALLINT",
+    INT: "INT",
+    DOUBLE: "DOUBLE",
+
+    /**
+     * Date Types
+     */
+    DATE: "DATE",
+    TIME: "TIME",
+    DATETIME({ CREATE = false, UPDATE = false }) {
+      if (CREATE) {
+        return "DATETIME DEFAULT CURRENT_TIMESTAMP";
+      } else if (UPDATE) {
+        return "DATETIME ON UPDATE CURRENT_TIMESTAMP";
+      }
+      return "DATETIME";
+    },
+  };
+
   constructor() {
     this.id = 0;
     this.created_date = "";
