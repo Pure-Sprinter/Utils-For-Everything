@@ -42,10 +42,7 @@ export class Model {
 
   to_entity(object) {
     const entity = new this.constructor();
-    Object.keys(this).map((key) => {
-      entity[key] = object[key];
-    });
-    return entity;
+    return Object.assign(object, entity);
   }
 
   /**
