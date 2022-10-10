@@ -22,9 +22,7 @@ export class Model {
   }
 
   columns() {
-    return Object.getOwnPropertyNames(this).filter(
-      (col) => !["id", "created_date", "updated_date"].includes(col)
-    );
+    return Object.getOwnPropertyNames(this).filter((col) => col !== "id");
   }
 
   types() {
