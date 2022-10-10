@@ -26,7 +26,7 @@ export class Model {
   }
 
   types() {
-    return this.columns().map((col) => type_into_sql[typeof this[col]]);
+    return this.columns().map((col) => COL_TYPE[this[col]]);
   }
 
   values() {
@@ -62,14 +62,6 @@ export class Model {
       throw new Error("주입한 값의 타입이 다릅니다.");
     }
   }
-
-  /**
-   * 기본 타입에 대한 타입 정의
-   */
-  static BASIC_TYPE = {
-    created_date: this.TYPE.DATETIME({ CREATE: true }),
-    updated_date: this.TYPE.DATETIME({ UPDATE: true }),
-  };
 
   /**
    * MySQL 기본 타입
@@ -108,11 +100,19 @@ export class Model {
       return "DATETIME";
     },
   };
-}
 
-const type_into_sql = {
-  number: "INT",
-  string: "TEXT",
-  object: "TEXT",
-  undefined: "TEXT",
-};
+  /**
+   * 기본 타입에 대한 타입 정의
+   */
+  static BASIC_TYPE = {
+    created_date: this.TYPE.DATETIME({ CREATE: true }),
+    updated_date: this.TYPE.DATETIME({ UPDATE: true }),
+  };
+
+  /**
+   * 추가로 생성한 칼럼에 대하여 작성하는 용도
+   * 상속 후 재정의 형태는 다음과 같다.
+   * COL_TYPE = Object.assign({ name: this.TYPE.VARCHAR(30) }, this.BASIC_TYPE);
+   */
+  COL_TYPE = {};
+}
