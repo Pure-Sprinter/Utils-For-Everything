@@ -95,7 +95,7 @@ export class Model {
       if (CREATE) {
         return "DATETIME DEFAULT CURRENT_TIMESTAMP";
       } else if (UPDATE) {
-        return "DATETIME ON UPDATE CURRENT_TIMESTAMP";
+        return "DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP";
       }
       return "DATETIME";
     },

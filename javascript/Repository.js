@@ -18,6 +18,16 @@ export class Repository {
     return result[0];
   }
 
+  async update(entity) {
+    const update_sql = query.update({ table: this.entity.get_class_name() });
+    Object.keys(entity)
+      .filter((key) => key !== "created_date")
+      .map((key) => update_sql.set({ col: key, value: entity[key] }));
+
+    const result = await db_run({ sql: update_sql.sql });
+    return result[0];
+  }
+
   async delete(entity) {
     this.differ_entity(entity);
     const delete_sql = query
