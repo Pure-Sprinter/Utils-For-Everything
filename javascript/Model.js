@@ -64,6 +64,15 @@ export class Model {
   }
 
   /**
+   * 기본 타입에 대한 타입 정의
+   */
+  static BASIC_TYPE = {
+    id: this.TYPE.INT,
+    created_date: this.TYPE.DATETIME({ CREATE: true }),
+    updated_date: this.TYPE.DATETIME({ UPDATE: true }),
+  };
+
+  /**
    * MySQL 기본 타입
    */
   static TYPE = {
