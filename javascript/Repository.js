@@ -44,10 +44,7 @@ export class Repository {
 
     const result = await db_run({ sql: select_sql });
     const object = result[0][0];
-    if (object) {
-      return this.entity.to_entity(object);
-    }
-    return null;
+    return object ? this.entity.to_entity(object) : null;
   }
 
   async find_all() {
@@ -71,11 +68,7 @@ export class Repository {
 
     const result = await db_run({ sql: select_sql.sql });
     const object = result[0][0];
-
-    if (object) {
-      return this.entity.to_entity(object);
-    }
-    return null;
+    return object ? this.entity.to_entity(object) : null;
   }
 
   /**
