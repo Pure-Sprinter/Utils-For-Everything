@@ -72,7 +72,7 @@ export class Repository {
   }
 
   /**
-   * 외래키를 통해 모든 것 조회
+   * 외래키 통해 조회
    */
   async find_all_by_entity(entity) {
     this.differ_entity(entity);
