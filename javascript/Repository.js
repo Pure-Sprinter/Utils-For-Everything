@@ -70,14 +70,19 @@ export class Repository {
    */
   async find_one(where) {
     const condition = { ...where };
-    const select_sql = query.select({ table: this.entity.get_class_name() });
+    const select_sql = query
+      .table({ entity: this.entity.get_class_name() })
+      .select();
+
     Object.keys(condition)
       .map((key) => {
         return { col: key, value: condition[key] };
       })
-      .map((element) => select_sql.where(element));
+      .map((element) => select_sql.where(element).and());
 
-    const result = await db_run({ sql: select_sql.sql });
+    const result = await db_run({
+      sql: select_sql.sql.slice(0, select_sql.sql.length - 5),
+    });
     const object = result[0][0];
     return object ? this.entity.to_entity(object) : null;
   }
