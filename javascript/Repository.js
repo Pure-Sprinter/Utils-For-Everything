@@ -47,7 +47,8 @@ export class Repository {
 
   async find_by_id(id) {
     const select_sql = query
-      .select({ table: this.entity.get_class_name() })
+      .table({ entity: this.entity.get_class_name() })
+      .select()
       .where({ col: "id", value: id }).sql;
 
     const result = await db_run({ sql: select_sql });
@@ -56,7 +57,9 @@ export class Repository {
   }
 
   async find_all() {
-    const select = query.select({ table: this.entity.get_class_name() }).sql;
+    const select = query
+      .table({ entity: this.entity.get_class_name() })
+      .select().sql;
     const result = await db_run({ sql: select });
     return result[0];
   }
