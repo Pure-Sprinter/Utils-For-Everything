@@ -13,18 +13,24 @@ export class Repository {
       .insert({
         col: this.entity.columns(),
         value: entity.values(),
+        prepared: true,
       }).sql;
 
-    const result = await db_run({ sql: insert_sql });
+    const result = await db_run({ sql: insert_sql, value: entity.values() });
     return result[0];
   }
 
   async update(entity) {
-    const update_sql = query.update({ table: this.entity.get_class_name() });
+    this.differ_entity(entity);
+    const update_sql = query
+      .table({ entity: this.entity.get_class_name() })
+      .update();
+
     Object.keys(entity)
-      .filter((key) => key !== "created_date")
+      .filter((col) => !["id", "created_date", "updated_date"].includes(col))
       .map((key) => update_sql.set({ col: key, value: entity[key] }));
 
+    update_sql.where({ col: "id", value: entity.get("id"), operator: "EQ" });
     const result = await db_run({ sql: update_sql.sql });
     return result[0];
   }
