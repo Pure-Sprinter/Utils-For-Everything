@@ -22,13 +22,13 @@ export class Model {
   }
 
   columns() {
-    return Object.getOwnPropertyNames(this).filter(
-      (col) => !["id", "created_date", "updated_date"].includes(col)
-    );
+    return Object.getOwnPropertyNames(this)
+      .filter(this.should_not_include)
+      .filter((col) => !["created_date", "updated_date"].includes(col));
   }
 
   types() {
-    return this.columns().map((col) => COL_TYPE[this[col]]);
+    return this.columns().map((col) => this.COL_TYPE[col]);
   }
 
   values() {
@@ -36,10 +36,16 @@ export class Model {
   }
 
   to_sql() {
-    const types = this.types();
-    return this.columns().map((value, index) => {
-      return { col: value, type: types[index] };
-    });
+    return Object.keys(this)
+      .filter(this.should_not_include)
+      .map((col) => {
+        return {
+          col,
+          type: !["created_date", "updated_date"].includes(col)
+            ? this.COL_TYPE[col]
+            : this.BASIC_TYPE[col],
+        };
+      });
   }
 
   to_entity(object) {
@@ -63,9 +69,16 @@ export class Model {
   }
 
   /**
+   * 테이블 쿼리 생성 시 포함되어서는 안되는 요소들
+   */
+  should_not_include(col) {
+    return !["id", "TYPE", "BASIC_TYPE", "COL_TYPE"].includes(col);
+  }
+
+  /**
    * MySQL 기본 타입
    */
-  static TYPE = {
+  TYPE = {
     /**
      * String Types
      */
@@ -103,7 +116,7 @@ export class Model {
   /**
    * 기본 타입에 대한 타입 정의
    */
-  static BASIC_TYPE = {
+  BASIC_TYPE = {
     created_date: this.TYPE.DATETIME({ CREATE: true }),
     updated_date: this.TYPE.DATETIME({ UPDATE: true }),
   };
