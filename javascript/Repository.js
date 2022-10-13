@@ -38,10 +38,11 @@ export class Repository {
   async delete(entity) {
     this.differ_entity(entity);
     const delete_sql = query
-      .delete({ table: this.entity.get_class_name() })
-      .where({ col: "id", value: entity.id }).sql;
+      .table({ entity: this.entity.get_class_name() })
+      .delete()
+      .where({ col: "id", value: entity.id, prepared: true }).sql;
 
-    await db_run({ sql: delete_sql });
+    await db_run({ sql: delete_sql, value: [entity.id] });
   }
 
   async find_by_id(id) {
