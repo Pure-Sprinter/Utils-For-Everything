@@ -99,7 +99,8 @@ export class Repository {
       .filter((col) => col.includes(entity_name))[0];
 
     const select_sql = query
-      .select({ table: this.entity.get_class_name() })
+      .table({ entity: this.entity.get_class_name() })
+      .select()
       .where({ col: foreign_key, value: entity.id }).sql;
 
     const result = await db_run({ sql: select_sql });
