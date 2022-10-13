@@ -8,11 +8,12 @@ export class Repository {
 
   async save(entity) {
     this.differ_entity(entity);
-    const insert_sql = query.insert({
-      table: this.entity.get_class_name(),
-      col: this.entity.columns(),
-      value: entity.values(),
-    }).sql;
+    const insert_sql = query
+      .table({ entity: this.entity.get_class_name() })
+      .insert({
+        col: this.entity.columns(),
+        value: entity.values(),
+      }).sql;
 
     const result = await db_run({ sql: insert_sql });
     return result[0];
