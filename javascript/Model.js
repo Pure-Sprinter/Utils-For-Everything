@@ -22,7 +22,9 @@ export class Model {
   }
 
   columns() {
-    return Object.getOwnPropertyNames(this).filter((col) => col !== "id");
+    return Object.getOwnPropertyNames(this).filter(
+      (col) => !["id", "created_date", "updated_date"].includes(col)
+    );
   }
 
   types() {
@@ -30,7 +32,7 @@ export class Model {
   }
 
   values() {
-    return Object.values(this).filter((col) => col !== "id");
+    return this.columns().map((col) => this[col]);
   }
 
   to_sql() {
