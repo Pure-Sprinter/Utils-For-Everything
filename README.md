@@ -19,7 +19,7 @@
 
 | 제목                 | 내용                                           | 파일 이름          | 지원 언어  |
 | -------------------- | ---------------------------------------------- | ------------------ | ---------- |
-| Getter 데코레이터    | Typescript 상에서 정의한 Getter Decorator      | [Getter.ts]()      | Typescript |
+| Getter 데코레이터    | Typescript 상에서 정의한 Getter Decorator      | [Getter.ts](https://github.com/Pure-Sprinter/Utils-For-Everything/blob/main/typescript/Getter.ts)      | Typescript |
 | Prisma와 함께 테스트 | Jest, Prisma를 사용하면서 에러를 방지하는 방법 | [Prisma-Jest.ts]() | Typescript |
 
 ## CSS
