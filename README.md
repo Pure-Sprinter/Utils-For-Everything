@@ -17,10 +17,16 @@
 
 ## Typescript
 
-| 제목                 | 내용                                           | 파일 이름          | 지원 언어  |
-| -------------------- | ---------------------------------------------- | ------------------ | ---------- |
-| Getter 데코레이터    | Typescript 상에서 정의한 Getter Decorator      | [Getter.ts](https://github.com/Pure-Sprinter/Utils-For-Everything/blob/main/typescript/Getter.ts)      | Typescript |
-| Prisma와 함께 테스트 | Jest, Prisma를 사용하면서 에러를 방지하는 방법 | [Prisma-Jest.ts]() | Typescript |
+| 제목                              | 내용                                           | 파일 이름                                                                                                                     | 지원 언어  |
+| --------------------------------- | ---------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- | ---------- |
+| Getter 데코레이터                 | Typescript 상에서 정의한 Getter Decorator      | [Getter.ts](https://github.com/Pure-Sprinter/Utils-For-Everything/blob/main/typescript/Getter.ts)                             | Typescript |
+| Custom Exception                  | 에러를 보내는 효과적인 Custom Handler          | [http-exception.ts](https://github.com/Pure-Sprinter/Utils-For-Everything/blob/main/typescript/http-exception.ts)             | Typescript |
+| Custom Builder                    | 타입스크립트에도 적용하는 빌더 패턴            | [custom-builder.ts](https://github.com/Pure-Sprinter/Utils-For-Everything/blob/main/typescript/custom-builder.ts)             | Typescript |
+| @Catch(Exception)                 | try-catch 반복을 줄이는 효과적인 방법          | [catch-decorator.ts](https://github.com/Pure-Sprinter/Utils-For-Everything/blob/main/typescript/catch-decorator.ts)           | Typescript |
+| @Controller("/url")               | express에서도 @Controller 사용하기             | [controller-decorator.ts](https://github.com/Pure-Sprinter/Utils-For-Everything/blob/main/typescript/controller-decorator.ts) | Typescript |
+| @Get, @Post, @Put @Patch, @Delete | express에서 Http Method 적용하기               | [method-decorator.ts](https://github.com/Pure-Sprinter/Utils-For-Everything/blob/main/typescript/method-decorator.ts)         | Typescript |
+| Custom AppModule                  | express에서 app을 객체로 선언하기              | [app.module.ts](https://github.com/Pure-Sprinter/Utils-For-Everything/blob/main/typescript/app.module.ts)                     | Typescript |
+| Prisma와 함께 테스트              | Jest, Prisma를 사용하면서 에러를 방지하는 방법 | [Prisma-Jest.ts]()                                                                                                            | Typescript |
 
 ## CSS
 
